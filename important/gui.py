@@ -16,7 +16,7 @@ label.pack()
 entry = tk.Entry(root)
 entry.pack()    
  
-button = tk.Button(root, text="Make PDF", command=lambda: makePDF(entry.get()))
+button = tk.Button(root, text="Make PDF", command=lambda: pw.makePDF(entry.get()))
 
 button.pack()
 
