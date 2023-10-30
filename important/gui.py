@@ -1,14 +1,6 @@
 import tkinter as tk
 import pdfWriter as pw
-# Creating a text field
-def makePDF():
-    user_input = entry.get()
-    # result_label.config(text=f"You entered: {user_input}")
-   
-    pw.makePDF(user_input)
-    
-    
-    # pw.tester(user_input)
+
 
 def close_window():
     root.destroy()
@@ -24,11 +16,11 @@ label.pack()
 entry = tk.Entry(root)
 entry.pack()    
  
-button = tk.Button(root, text="Make PDF", command=makePDF)
+button = tk.Button(root, text="Make PDF", command=lambda: makePDF(entry.get()))
 
 button.pack()
 
-done_button = tk.Button(root, text="Done", command=close_window)
+done_button = tk.Button(root, text="Done", command=lambda: close_window())
 done_button.pack()
 
 # Create a label to display the result
