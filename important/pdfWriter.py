@@ -52,7 +52,10 @@ def makePDF(color):
     drawHeight = 680
     c = canvas.Canvas("pdfs/" + color + ".pdf", pagesize=letter)
 
+    
+    print("Length: ", len(hash.listOfColorLists[color]))
     if (len(hash.listOfColorLists[color]) != 0):
+        
         for i in range(len(hash.listOfColorLists[color])):
             custom = hash.listOfColorLists[color][i]
             c.setFont(custom.font, fontSize(custom.font))
@@ -70,7 +73,6 @@ def makePDF(color):
 
             c.drawString(currentWidth, drawHeight, custom.text)
             currentWidth += stringWidth + 30
-    c.drawString(20, 20, "Saved")
     c.save()
 
 

@@ -5,6 +5,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import pdfWriter
+import gui
 
 # Define the URL for accessing the Shopify store's API
 url = 'https://a49ba18159fe5c18878c02cd077c773b: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@lovcompression.myshopify.com/admin/api/2022-04/'
@@ -107,6 +108,7 @@ for item in listOfItems:
 
         hash.listOfColorLists["White"]
 
-pdfWriter.makePDF("White")
+# pdfWriter.makePDF("White")
+gui.mainGui()
 # pdfWriter.makePDFs()
-# pdfWriter.tester("White")
+# pdfWriter.tester("Black")
