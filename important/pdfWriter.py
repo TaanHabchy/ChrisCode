@@ -46,7 +46,6 @@ def tester(color):
 
 
 def makePDF(color):
-
     print("color is", color)
     currentWidth = 15
     drawHeight = 680
@@ -77,6 +76,7 @@ def makePDF(color):
 
 
 def makePDFs():
+
     for color in hash.listOfColorLists:
         drawHeight = 690
         currentWidth = 15

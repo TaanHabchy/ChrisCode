@@ -4,19 +4,18 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
-import pdfWriter
-import gui
+import gui as g
+import pdfWriter as pw
 
 # Define the URL for accessing the Shopify store's API
 url = 'https://a49ba18159fe5c18878c02cd077c773b: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@lovcompression.myshopify.com/admin/api/2022-04/'
 
-# Function to retrieve orders from the Shopify API
-
 def get_orders():
-    endpoint = 'orders.json'
+    date = g.custDate
+    print("Date is: ",date)
+    endpoint = f'orders.json?limit=20;created_at_max=2023-10-{date}T23:59:59;status=any'
     r = requests.get(url + endpoint)
     return r.json()
-
 
 class Order:
     orderID = ""
@@ -42,33 +41,15 @@ class Order:
             print(item)
 
 
-"""|
-getSpecificProductID
-
-gets the product ID from a line item
-
-parameters:
-    item: the line item - order["line_items"][0]["properties"]
-
-output:
-    returns the productID as a string
-"""
-
-
-def getSpecificProductID(item):
-    return int(item["product_id"])
-
-
-# initialize lists
-listOfOrders = []  # list of classess
-listOfItems = []  # all the line items that have
+# def get_orders():
+#     endpoint = 'orders.json?'
+#     r = requests.get(url + endpoint)
+#     return r.json()
 
 """
 data search: iterates through the orders and makes a list of class Orders
 returns that list
 """
-
-
 def dataSearch():
     orderData = get_orders()
     i = 0
@@ -90,16 +71,40 @@ def dataSearch():
 
         listOfOrders.append(myOrder)
 
-dataSearch()
+
+
+
+"""|
+getSpecificProductID
+
+gets the product ID from a line item
+
+parameters:
+    item: the line item - order["line_items"][0]["properties"]
+
+output:
+    returns the productID as a string
+"""
+
+
+def getSpecificProductID(item):
+    return int(item["product_id"])
+
+
+# initialize lists
+listOfOrders = []  # list of classes
+listOfItems = []  # all the line items that have
+
 
 def printer():
     for i in len(listOfOrders):
         listOfOrders[i].printOrder()
 
-
 """
 gets each item's product ID
 """
+dataSearch()
+
 for item in listOfItems:
     if type(item["product_id"]) == int:
         productID = getSpecificProductID(item)
@@ -108,7 +113,7 @@ for item in listOfItems:
 
         hash.listOfColorLists["White"]
 
-# pdfWriter.makePDF("White")
-gui.mainGui()
-# pdfWriter.makePDFs()
-# pdfWriter.tester("Black")
+
+pw.makePDF("White")
+# pw.tester("White")
+# pw.makePDFs()
