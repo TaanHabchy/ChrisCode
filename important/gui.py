@@ -1,39 +1,44 @@
 import tkinter as tk
+import main as m
+import pdfWriter as pw
 
 custDate = None
-
-myDate = None
+custLimit = None
+custID = None
 
 def close_window():
     root.destroy()
+
+def getDates():
+    global custDate 
+    custLimit = limitEntry.get()
+    return custDate
 
 
 # Create a main window
 root = tk.Tk()
 root.title("Make PDFs")
+root.geometry("300x300")
 
-# Create a label widget
-label = tk.Label(root, text="Choose a date")
-label.pack()
+limitLabel = tk.Label(root, text="How many orders do you want?")
+limitLabel.pack()
 
-# entry for the date to be inputed, gets last 250 orders up to that date
+limitEntry = tk.Entry(root)
+# custDate = date.get()
+limitEntry.pack()
 
-date = tk.Entry(root)
-custDate = date.get()
-date.pack() 
+lastOrderID = tk.Label(root, text="Input the last ID")
+lastOrderID.pack()
+
+lastOrderIDEntry = tk.Entry(root)
+lastOrderIDEntry.pack()
+
+searchButton = tk.Button(root, text="Search Data", command=lambda: m.completeSearch)
+searchButton.pack()
 
 
-def getDates():
-    global custDate 
-    custDate = date.get()
-    print("In get date: ",custDate)
-    return custDate
-
-dateButton = tk.Button(root, text=("Submit Date"), command = lambda: getDates())
-dateButton.pack()
-
-# allButton = tk.Button(root, text="Make all PDFs", command = lambda: pw.makePDFs)
-# allButton.pack()
+PDFButton = tk.Button(root, text="Make all PDFs", command = lambda: pw.makePDFs)
+PDFButton.pack()
 
 done_button = tk.Button(root, text="Done", command=lambda: close_window())
 done_button.pack()

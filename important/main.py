@@ -4,16 +4,17 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
-import gui as g
-import pdfWriter as pw
+
 
 # Define the URL for accessing the Shopify store's API
 url = 'https://a49ba18159fe5c18878c02cd077c773b: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@lovcompression.myshopify.com/admin/api/2022-04/'
 
 def get_orders():
     date = g.custDate
-    print("Date is: ",date)
-    endpoint = f'orders.json?limit=20;created_at_max=2023-10-{date}T23:59:59;status=any'
+    limit = g.custLimit
+    getID = g.getID
+    # endpoint = f'orders.json?limit=250;created_at_max=2023-10-{date}T23:59:59;status=any'
+    endpoint = f'orders.json?limit={limit};since_id={getID};fulfillment_status=unfulfilled'
     r = requests.get(url + endpoint)
     return r.json()
 
@@ -71,9 +72,6 @@ def dataSearch():
 
         listOfOrders.append(myOrder)
 
-
-
-
 """|
 getSpecificProductID
 
@@ -103,17 +101,18 @@ def printer():
 """
 gets each item's product ID
 """
-dataSearch()
 
-for item in listOfItems:
-    if type(item["product_id"]) == int:
-        productID = getSpecificProductID(item)
+def completeSearch():
+    dataSearch()
+    
+    for item in listOfItems:
+        if type(item["product_id"]) == int:
+            productID = getSpecificProductID(item)
 
-        hash.getDataFromLineItem(productID, item)
+            hash.getDataFromLineItem(productID, item)
 
-        hash.listOfColorLists["White"]
+            hash.listOfColorLists["White"]
 
 
-pw.makePDF("White")
+# pw.makePDF("White")
 # pw.tester("White")
-# pw.makePDFs()

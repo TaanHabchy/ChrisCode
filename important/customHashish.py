@@ -3,7 +3,7 @@
 colors = ["Black", "White", "Red", "Pink", "Maroon", "Royal Blue", "Navy", \
           "Carolina Blue", "Shark Teal", "Athletic Yellow", "Bright Yellow", \
             "Sport Orange", "Purple", "Kelly Green", "Forest Green", "HI-Vis Green", \
-                "Vegas Gold", "Shiny Gold", "Shiny Silver", "Grey", "Brown"]
+                "Vegas Gold", "Shiny Gold", "Gold", "Shiny Silver", "Grey", "Brown"]
 
 listOfColorLists = {}
 
@@ -25,6 +25,7 @@ listOfColorLists["Forest Green"] = []
 listOfColorLists["High-Vis Green"] = []
 listOfColorLists["Vegas Gold"] = []
 listOfColorLists["Shiny Gold"] = []
+listOfColorLists["Gold"] = []
 listOfColorLists["Shiny Silver"] = []
 listOfColorLists["Grey"] = []
 listOfColorLists["Brown"] = []
@@ -69,8 +70,8 @@ def pushDataToList(text, color, font):
     if color in listOfColorLists:
         listOfColorLists[color].append(myTextData)
     else:
-        
         print("color not found: ", color)
+        print('Text is: ', text)
 
 def getDataFromLineItem(productID, item):
     

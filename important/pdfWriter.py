@@ -77,6 +77,7 @@ def makePDF(color):
 
 def makePDFs():
 
+
     for color in hash.listOfColorLists:
         drawHeight = 690
         currentWidth = 15
