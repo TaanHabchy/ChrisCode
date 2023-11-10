@@ -1,0 +1,4 @@
+Sharbel - customHashish, pdfWriter
+Mark - datasearch, gui
+
+- add errors for the gui, exceptions
