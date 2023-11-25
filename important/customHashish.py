@@ -34,19 +34,21 @@ colorDataHash["Brown"] = []
 class textData:
     text = ""
     font = ""
+    quantity = 0
 
     def print(self):
         print("Text: " + self.text)
         print("Font: " + self.font)
 
     """
-    
+
     Initiates instances of a text and font
     """
 
     def textData(self):
         self.text = ""
         self.font = ""
+        self.quantity = 0
 
     """
     takes the data of the text and converts it into a string
@@ -60,6 +62,9 @@ class textData:
     def getText(self):
         return self.text
 
+    def setQuantity(self, quantity):
+        self.quantity = int(quantity)
+
     """
     setText but for Font
     """
@@ -70,7 +75,6 @@ class textData:
     def getFont(self):
         return self.font
 
-
 """
 Parameters:
     - Input: text, color and font
@@ -78,11 +82,13 @@ Parameters:
 """
 
 
-def pushDataToList(text, color, font):
+def pushDataToList(text, color, font, quantity):
     myTextData = textData()
     myTextData.textData()
     myTextData.setText(text)
     myTextData.setFont(font)
+    myTextData.setQuantity(quantity)
+
 
     try:
         colorDataHash[color].append(myTextData)
@@ -105,6 +111,7 @@ def getDataFromLineItem(productID, item):
     """
     If there are customizable properties return the customized
     """
+
     def customPick(x):
         if len(item["properties"]) > 0:
             return item["properties"][x]["value"]
@@ -114,7 +121,8 @@ def getDataFromLineItem(productID, item):
         number = customPick(0)
         font = customPick(1)
         textColor = customPick(2)
-        pushDataToList(number, textColor, font)
+        quantity = item["quantity"]
+        pushDataToList(number, textColor, font, quantity)
 
     # Customized Arm Sleeve
     elif (productID == 10834995656):
@@ -122,7 +130,8 @@ def getDataFromLineItem(productID, item):
         font = customPick(1)
         textColor = customPick(2)
         textLength = customPick(3)
-        pushDataToList(text, textColor, font)
+        quantity = item["quantity"]
+        pushDataToList(text, textColor, font, quantity)
 
     # Custom Text Number
     elif (productID == 1421879279671):
@@ -132,23 +141,28 @@ def getDataFromLineItem(productID, item):
         text = customPick(3)
         textFont = customPick(4)
         textColor = customPick(5)
-        pushDataToList(text, textColor, textFont)
-        pushDataToList(number, numberColor, numberFont)
+        quantity = item["quantity"]
+        pushDataToList(text, textColor, textFont, quantity)
+        pushDataToList(number, numberColor, numberFont, quantity)
 
     # Custom Headband
     elif (productID == 1376623132727):
         text = customPick(0)
         font = customPick(1)
         textColor = customPick(2)
-        pushDataToList(text, textColor, font)
+        quantity = item["quantity"]
+        pushDataToList(text, textColor, font, quantity)
 
     # Number Football Towel
     elif (productID == 1688836046903):
         number = customPick(1)
+        quantity = item["quantity"]
+        pushDataToList(number, "Black", "Roboto", quantity)
 
     # Custom Leg Sleeve
     elif (productID == 673478279223):
         text = customPick(0)
         font = customPick(1)
         textColor = customPick(2)
-        pushDataToList(text, textColor, font)
+        quantity = item["quantity"]
+        pushDataToList(text, textColor, font, quantity)
