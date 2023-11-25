@@ -1,19 +1,16 @@
 import requests
 import customHashish as hash
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-
 
 # Define the URL for accessing the Shopify store's API
 url = 'https://a49ba18159fe5c18878c02cd077c773b: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@lovcompression.myshopify.com/admin/api/2022-04/'
+
 
 def get_orders(limit, ID):
     # endpoint = f'orders.json?limit=250;created_at_max=2023-10-{date}T23:59:59;status=any'
     endpoint = f'orders.json?limit={limit};since_id={ID};fulfillment_status=unfulfilled'
     r = requests.get(url + endpoint)
     return r.json()
+
 
 class Order:
     orderID = ""
@@ -43,9 +40,10 @@ class Order:
 data search: iterates through the orders and makes a list of class Orders
 returns that list
 """
+
+
 def dataSearch(limit, ID):
     orderData = get_orders(limit, ID)
-    i = 0
     for order in orderData["orders"]:
         # creating new instance of order class
         myOrder = Order()
@@ -56,13 +54,13 @@ def dataSearch(limit, ID):
         gathering product ID and customization info
         """
         lineItems = order["line_items"][0]["properties"]
-        # converting to float so I can manipulate it if needed
 
         for i in range(0, len(order["line_items"])):
             myOrder.addLineItem(order["line_items"][i])
             listOfItems.append(order["line_items"][i])
 
         listOfOrders.append(myOrder)
+
 
 """|
 getSpecificProductID
@@ -90,12 +88,13 @@ def printer():
     for i in len(listOfOrders):
         listOfOrders[i].printOrder()
 
+
 """
 gets each item's product ID
 """
 
+
 def completeSearch(limit, ID):
-    
     dataSearch(limit, ID)
 
     for item in listOfItems:
@@ -107,7 +106,3 @@ def completeSearch(limit, ID):
             hash.colorDataHash["White"]
 
     print("Finished searching the data")
-
-
-# pw.makePDF("White")
-# pw.tester("White")
