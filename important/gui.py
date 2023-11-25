@@ -1,32 +1,35 @@
 import tkinter as tk
-import datasearch as ds
+from tkinter import messagebox
+import dataSearch as ds
 import pdfWriter as pw
-
-idLen = 14
-
-def on_validate(new_value):
-    return len(new_value) == 14  # Limit the input to 10 characters
 
 
 def close_window():
     root.destroy()
 
 def getDates():
-    global custDate 
+    global custDate
     custLimit = limitEntry.get()
     return custDate
 
-def search_action():
-    id_value = lastOrderIDEntry.get()
-    if len(id_value) == idLen:
-        # Perform the search or any action here
-        ds.completeSearch(limitEntry.get(), id_value)
-    else:
-        print("ID should be exactly 14 digits.")
+def search_action(limit, id):
+    if(len(id) != 13):
+        IDerror()
+
+    if(len(limit) == 0):
+        limitError()
+
+    ds.completeSearch(limit, id)
+
+def IDerror():
+    messagebox.showerror("Error with ID number", "Error: the ID is invalid")
+
+def limitError():
+    messagebox.showerror("Error with limit", "Error: number of orders is invalid")
 
 # Create a main window
 root = tk.Tk()
-root.title("Make PDFs")
+root.title("Custom Sports Sleeves")
 root.geometry("300x300")
 
 limitLabel = tk.Label(root, text="How many orders do you want?")
@@ -34,21 +37,18 @@ limitLabel = tk.Label(root, text="How many orders do you want?")
 limitLabel.pack()
 
 limitEntry = tk.Entry(root)
-# custDate = date.get()
 limitEntry.pack()
 
-lastOrderID = tk.Label(root, text="Input the last ID")
+lastOrderID = tk.Label(root, text="Since Order ID *GET FROM SHOPIFY*")
 lastOrderID.pack()
 
-validCommand = root.register(on_validate)
-
-lastOrderIDEntry = tk.Entry(root, validate="key", validatecommand=validCommand)
+lastOrderIDEntry = tk.Entry(root)
 lastOrderIDEntry.pack()
 
-searchButton = tk.Button(root, text="Search Data", command=lambda: ds.completeSearch(limitEntry.get(), lastOrderIDEntry.get()))
+searchButton = tk.Button(root, text="Search Data", command=lambda: search_action(limitEntry.get(), lastOrderIDEntry.get()))
 searchButton.pack()
 
-PDFButton = tk.Button(root, text="Make all PDFs", command = lambda: pw.makeAllPDFs())
+PDFButton = tk.Button(root, text="Make all PDFs", command=lambda: pw.makeAllPDFs())
 PDFButton.pack()
 
 done_button = tk.Button(root, text="Done", command=lambda: close_window())
