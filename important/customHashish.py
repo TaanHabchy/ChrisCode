@@ -155,7 +155,7 @@ def getDataFromLineItem(productID, item):
 
     # Number Football Towel
     elif (productID == 1688836046903):
-        number = customPick(1)
+        number = customPick(0)
         quantity = item["quantity"]
         pushDataToList(number, "Black", "Roboto", quantity)
 
