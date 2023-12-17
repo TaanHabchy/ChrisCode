@@ -1,13 +1,13 @@
 import requests
-import customHashish as hash
+import customHash as hash
 
 # Define the URL for accessing the Shopify store's API
-url = 'https://a49ba18159fe5c18878c02cd077c773b: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@lovcompression.myshopify.com/admin/api/2022-04/'
+url = 'https://6deed5244c09cda4a83b90407bfb70fa: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@lovcompression.myshopify.com/admin/api/2023-07/'
 
 
 def get_orders(limit, ID):
     # endpoint = f'orders.json?limit=250;created_at_max=2023-10-{date}T23:59:59;status=any'
-    endpoint = f'orders.json?limit={limit};since_id={ID};fulfillment_status=unfulfilled'
+    endpoint = f'orders.json?limit={limit};since_id={ID};fulfillment_status=unshipped'
     r = requests.get(url + endpoint)
     return r.json()
 
